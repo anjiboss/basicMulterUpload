@@ -1,10 +1,14 @@
 const express = require("express");
-const app = express()
+const app = express();
+const path = require("path");
 
-const PORT = process.env.PORT || 5000
+//MiddleWare
+app.use(express.static(path.join(__dirname, "static")));
 
-app.get("/", (req, res) => {
-  res.send("You are On Home");
-})
+const avatar = require("./routes/avatar");
 
-app.listen(PORT,() => console.log("Running on "+ PORT))
+app.use("/avatar", avatar);
+
+//PORT and Server Listening
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log("Running on " + PORT));
